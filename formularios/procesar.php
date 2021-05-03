@@ -1,6 +1,5 @@
 <?php
 
-
 $var = "<br><br>LLEGO :: " . $_SERVER['REQUEST_METHOD'];
 $var .= "<br><br>";
 
