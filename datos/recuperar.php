@@ -21,7 +21,7 @@ $resultado = $mysqli->query("SELECT '¡Hola, querido usuario de MySQL! estas con
 
 $fila = $resultado->fetch_assoc();
 
-echo htmlentities($fila['_message']);
+echo $fila['_message'];
 
 echo "<br><br>";
 
@@ -39,15 +39,15 @@ echo "<br><br>";
 
 
 // OBSOLETO llego hasta 5.5
-// $con = mysql_connect("localhost", "root", "");
-// mysql_select_db("sigecs");
-// $resultado = mysql_query("SELECT '¡Hola, querido usuario de MySQL!' AS _message FROM DUAL");
-// $fila = mysql_fetch_assoc($resultado);
-// echo htmlentities($fila['_message']);
+//  $con = mysql_connect("localhost", "root", "");
+//  mysql_select_db("sigecs");
+//  $resultado = mysql_query("SELECT '¡Hola, querido usuario de MySQL!' AS _message FROM DUAL");
+//  $fila = mysql_fetch_assoc($resultado);
+//  echo htmlentities($fila['_message']);
 
 
 
 ?>
-    
+
 </body>
 </html>
