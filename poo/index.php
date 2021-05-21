@@ -28,12 +28,15 @@
 
     // Tipo de fuselaje
     // Tren de aterrizaje (rudas - flotadores)
-    // Sesores ({1=altimetro - 2=barometros - 3=termicos ... etc} :: codiguera)
+    // Sesores ({1=altimetro - 2=barometros - 3=termicos ... etc} :: codiguera) 
 
         // Clase Sensores
 
+            // ID (DENOMINACION/NOMBRE) (HABILITADO/ACTIVO)
 
 
 
 
-// DISPOSITIVOS
+            
+
+
