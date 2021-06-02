@@ -1,35 +1,27 @@
 <?php
-class Trasnporte
+class Transporte 
 {
-    // Declaración de una propiedad
-    private $largo;
+    //Declarar propiedad
+    private $largo = 'algo';
     private $ancho;
+    private $peso;
+    private $color;
+    private $capacidad_de_carga;
+    private $tipo_carga;
+    private $combustible;
+    private $recorrido;
+    private $medio;
+    private $tipo;
+    private $motor;
+    private $hp;
+    private $velocidad_max;
+    //Declaracion de metodo
+
+    public function mostrarFunction(){
+        echo $this->largo;
+    }
     
-
-    // Declaración de un método
-    public function mostrarVar() {
-    // La pseudovariable $this está disponible cuando un método es invocado dentro del
-    // contexto de un objeto. $this es una referencia al objeto invocador.
-    echo $this->var;
-    }
-
-    /**
-     * Get the value of ancho
-     */ 
-    public function getAncho()
-    {
-        return $this->ancho;
-    }
-
-    /**
-     * Set the value of ancho
-     *
-     * @return  self
-     */ 
-    public function setAncho($ancho)
-    {
-        $this->ancho = $ancho;
-
-        return $this;
-    }
-    }
+}
+$mostrar = new Transporte();
+$mostrar->mostrarFunction();
+?>

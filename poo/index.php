@@ -34,7 +34,7 @@
 
             // ID (DENOMINACION/NOMBRE) (HABILITADO/ACTIVO)
 
-
+// Clase Transporte_Marítimo
 
 
             
