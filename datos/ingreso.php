@@ -26,20 +26,25 @@ echo $fila['_message'];
 echo "<br><br>";
 
 
+
+
+
 // PDO                  HOST              DB_NAME     USER    PASS
 $pdo_con = new PDO('mysql:host=localhost;dbname=pruebas_2021', 'root', '');
 
-$sql="INSERT INTO persona(cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nac) 
-values(:cedula, :n1, :n2, :a1, :a2, :fn)";
+$sql="INSERT INTO persona (cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nac) 
+VALUES (:cedula, :n1, :n2, :a1, :a2, :fn)";
+
+//VALUES (?, ?, ?, ?, ?, ?)";
 
 $sql = $pdo_con->prepare($sql);
 
 $cedula = 19259122;
-$primer_nombre = "Juan";
-$segundo_nombre = "Manuel";
-$primer_apellido = "Sanchez";
-$segundo_apellido = "Rodriguez";
-$fecha_nacimiento = "19751103";
+$primer_nombre = "Franco";
+$segundo_nombre = "Joaquín";
+$primer_apellido = "Machado";
+$segundo_apellido = "Rosales";
+$fecha_nacimiento = "20000424"; // año mes dia -  Fecha en formato General 
 
 /*
 PDO::PARAM_STR se utiliza para cadenas.
@@ -49,11 +54,12 @@ PDO::PARAM_NULL solo permite el tipo de datos NULL.
 */
 
 $sql->bindParam(':cedula', $cedula, PDO::PARAM_INT);
+
 $sql->bindParam(':n1', $primer_nombre, PDO::PARAM_STR, 120);
 $sql->bindParam(':n2', $segundo_nombre, PDO::PARAM_STR, 120);
 $sql->bindParam(':a1', $primer_apellido, PDO::PARAM_STR, 120);
 $sql->bindParam(':a2', $segundo_apellido, PDO::PARAM_STR, 120);
-$sql->bindParam(':fn', $fecha_nacimiento, PDO::PARAM_STR);
+$sql->bindParam(':fn', $fecha_nacimiento, PDO::PARAM_STR, 8);
 
 $sql->execute();
 
