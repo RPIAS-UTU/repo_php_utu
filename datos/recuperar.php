@@ -15,7 +15,7 @@
 
 
 // mysqli              HOST       USER    PASS DB_NAME
-$mysqli = new mysqli("localhost", "root", "", "sigecs");
+$mysqli = new mysqli("localhost", "root", "", "pruebas_2021");
 
 $resultado = $mysqli->query("SELECT '¡Hola, querido usuario de MySQL! estas conectado por mysqli' AS _message FROM DUAL");
 
@@ -27,7 +27,7 @@ echo "<br><br>";
 
 
 // PDO                  HOST              DB_NAME     USER    PASS
-$pdo = new PDO('mysql:host=localhost;dbname=sigecs', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=pruebas_2021', 'root', '');
 
 $sentencia = $pdo->query("SELECT '¡Hola, querido usuario de MySQL! estas conectado por PDO' AS _message FROM DUAL");
 

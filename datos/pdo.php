@@ -1,7 +1,8 @@
 <?php
+
 const USER = "root";
 const PASS = "";
-const DB = "sigecs";
+const DB = "pruebas_2021";
 const HOST = "localhost";
 const DSN = "mysql:host=" . HOST . ";dbname=" . DB;
 
@@ -16,7 +17,7 @@ try {
 
         /* ejemplo de una consulta */
 
-        $consulta = "select * from personas";
+        $consulta = "SELECT * FROM persona";
         $resultado = $obj_conexion->query($consulta);
 
         if ($resultado->fetchColumn() > 0) {

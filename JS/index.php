@@ -4,13 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        
+    </style>
+
+
+
     <title>Document</title>
 </head>
 <body>
 
 
+<div style="background-color: red; width: 200px; height:200px;">
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
+
+
 
 /*
 
@@ -22,9 +50,20 @@ ASP.NET Core
 
 APP WEB
 
-HTML
-CSS (Boostrap)
-JS
+ 1 =  HTML
+ 2 =  CSS (Boostrap)
+ 3 =  JS (JQuery: libreria) (Vue, Angular, React)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

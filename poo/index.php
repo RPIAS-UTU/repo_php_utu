@@ -35,8 +35,42 @@
             // ID (DENOMINACION/NOMBRE) (HABILITADO/ACTIVO)
 
 // Clase Transporte_Marítimo
+           
 
 
-            
+     class Persona
+     {
 
+        
+       /*  function __construct()
+        {
+             $nombre="Agustín";
+         $apellido="Toya";
+
+            $this->Saludo($nombre,$apellido);
+        } */
+        /*Caso 1, constructor tiene los atributos creados en él.
+        Luego los manda a la función, que sin el "this", no anda. */
+        
+     public function __construct($nom, $ape)
+        {
+            $this->Saludo($nom,$ape);
+        }
+ 
+       public function __construct_pepe()
+       
+        {
+            $this->Saludo("Hola");
+        }
+
+        public function Saludo($nombre, $apellido){
+            echo "Hola " . $nombre . " " . $apellido; 
+            //El echo solo puede existir dentro de una función
+        }
+
+    
+        
+     }
+     $obj = new Persona();
+     //$obj->Saludo('German', 'Garamendia');
 
