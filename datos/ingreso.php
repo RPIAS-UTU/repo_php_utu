@@ -76,6 +76,7 @@ $ultimo_ID_ingresado = $pdo_con->lastInsertId();
 if($ultimo_ID_ingresado > 0){
 
     echo "<div class='content alert alert-primary' > Datos Agregados Correctamente   </div>";
+    
 
 }else{
 
@@ -88,3 +89,4 @@ if($ultimo_ID_ingresado > 0){
 
 </body>
 </html>
+
