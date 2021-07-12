@@ -8,7 +8,7 @@ class Soporte extends Empleado
 
     //Declaracion de metodo
 
-    public function calcularSueldo(){
+    public static function calcularSueldo(){
         return $this->sueldo + ($this->asistencias * 25);
     }
 

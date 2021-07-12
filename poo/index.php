@@ -4,7 +4,7 @@ include_once("polimorfismo/soporte.php");
 $soporte = new Soporte();
 $soporte->asistencias = 25;
 $soporte->setSueldo(30000);
-echo 'El sueldo del funcionarios de soporte Juan Perez es de : ' . $soporte->calcularSueldo();
+echo 'El sueldo del funcionarios de soporte Juan Perez es de : ' . Soporte::calcularSueldo();
 
 
 
