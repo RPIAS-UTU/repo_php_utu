@@ -1,7 +1,7 @@
 <?php
 include_once("conexion.php");
 
-class Personas_Controller extends Conexion
+class Personas_Model extends Conexion
 {
 
     private $conexion;
