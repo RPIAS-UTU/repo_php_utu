@@ -176,16 +176,15 @@ class Personas_Model extends Conexion
             WHERE cedula = :cedula";
 
         $update = $con->prepare($sql);
+
         $update->bindParam(':n1', $n1, PDO::PARAM_STR, 25);
         $update->bindParam(':n2', $n2, PDO::PARAM_STR, 25);
         $update->bindParam(':a1', $a1, PDO::PARAM_STR, 25);
         $update->bindParam(':a2', $a2, PDO::PARAM_STR, 25);
         $update->bindParam(':fnac', $fnac, PDO::PARAM_STR, 25);
         $update->bindParam(':cedula', $cedula, PDO::PARAM_INT);
-        $respuesta = false;
-        if ($update->execute())
-            $respuesta = true;
-        return $respuesta;
+            
+        return $update->execute();
     }
 
     public function Modificar_Persona($cedula, $n1, $n2, $a1, $a2, $fnac)

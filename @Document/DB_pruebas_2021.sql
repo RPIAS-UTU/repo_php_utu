@@ -29,7 +29,20 @@ DELIMITER $$
 -- Procedimientos
 --
 DROP PROCEDURE IF EXISTS `sp_agregar_persona`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_agregar_persona` (IN `ci` INT, IN `n1` VARCHAR(50), IN `n2` VARCHAR(50), IN `a1` VARCHAR(50), IN `a2` VARCHAR(50), IN `fnac` VARCHAR(10), INOUT `id_ingresado` INT)  BEGIN 
+CREATE PROCEDURE `sp_agregar_persona` 
+(
+  IN `ci` INT, 
+  IN `n1` VARCHAR(50), 
+IN `n2` VARCHAR(50), IN `a1` VARCHAR(50), 
+IN `a2` VARCHAR(50), IN `fnac` 
+VARCHAR(10), 
+
+INOUT `id_ingresado` INT
+
+)  
+
+BEGIN 
+
 INSERT INTO persona (
     cedula, 
     primer_nombre, 
