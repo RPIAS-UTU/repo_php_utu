@@ -10,6 +10,21 @@ class Personas_Model extends Conexion
     {
         $this->conexion = new Conexion();
     }
+    
+    public static function Listar_Personas_Ajax(){
+        $resultado = null;
+        try {
+            
+            $con = new Conexion();
+            $consulta = "SELECT cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM persona";
+            $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (Exception $e) {
+            throw new Exception('Falló la conexión con la DB: ' . $e->getMessage());
+        }
+
+        return $resultado;
+    }
 
     public static function Listar_Personas(){
         try {
