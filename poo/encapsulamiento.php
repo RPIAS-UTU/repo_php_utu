@@ -2,15 +2,17 @@
 
 class Person {
 
-    protected $cedula;    
-    protected $primerNombre;
-    protected $primerApellido;
-    protected $property;
+    private $cedula;    
+    private $primerNombre;
+    private $primerApellido;
+    private $property;
 
     public function __construct($property)
     {
         $this->property = $property;
     }
+
+       
 
 
 

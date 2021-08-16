@@ -12,7 +12,6 @@ $(function () {
 */
     cargarGrilla();
 
-
     // $('#select_unidad').on('change', onSelectUnidadChange);
     // $('#btn_agregar').attr("disabled", false);
     // $('#btn_cerrar').hide();
@@ -20,22 +19,56 @@ $(function () {
 
     var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
     var alertTrigger = document.getElementById('liveAlertBtn')
-    
+
     function alert(message, type) {
-      var wrapper = document.createElement('div')
-      wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-    
-      alertPlaceholder.append(wrapper)
+        var wrapper = document.createElement('div')
+        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + 
+        message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+        alertPlaceholder.append(wrapper)
     }
-    
+
     if (alertTrigger) {
-      alertTrigger.addEventListener('click', function () {
-        alert('Nice, you triggered this alert message!', 'success')
-      })
+        alertTrigger.addEventListener('click', function () {
+            alert('Nice, you triggered this alert message!', 'success')
+        })
     }
 
 });
 
+
+function agregarPersona() {
+
+    var cedula = $("#txt_cedula").val();
+    var nombre = $("#txt_nombre").val();
+    var apellido = $("#txt_apellido").val();
+    var email = $("#txt_email").val();
+    var telefono = $("#txt_telefono").val();
+    var direccion = $("#txt_direccion").val();
+    var unidad = $("#select_unidad").val();
+
+    var data = {
+        'cedula': cedula,
+        'nombre': nombre,
+        'apellido': apellido,
+        'email': email,
+        'telefono': telefono,
+        'direccion': direccion,
+        'unidad': unidad
+    };
+
+    $.ajax({
+        type: 'POST',  // Envío con método POST
+        dataType: "json", // Datos devueltos en formato JSON
+        url: 'agregar.php',  // Fichero destino (el PHP que trata los datos)
+        data: data  // Datos que se envían
+    }).done(function (data) {  // Función que se ejecuta si todo ha ido bien
+        // Escribimos en el div consola el mensaje devuelto por el servidor
+        // El método JSON.stringify() convierte un objeto o valor de JavaScript
+
+}).fail(function (jqXHR, textStatus) {
+
+});
+}
 
 function cargarGrilla() {
 
@@ -111,7 +144,6 @@ function Cabezales(datos, selector) {
     $(selector).append(header);
     return columns;
 }
-
 
 function generar_tabla(selector, datos) {
 

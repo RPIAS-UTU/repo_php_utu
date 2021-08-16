@@ -33,6 +33,10 @@ setlocale(LC_TIME,"es_ES");
  echo "<br><br>";
  echo $fechaActual;
 
+
+
+
+
 ?>
 </p>
 

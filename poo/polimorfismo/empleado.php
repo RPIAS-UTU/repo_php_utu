@@ -1,8 +1,8 @@
 <?php
-class Empleado 
+abstract class  Empleado 
 {
     //Declarar propiedad
-    protected $sueldo;
+    protected $d;
 
     //Declaracion de metodo
 
