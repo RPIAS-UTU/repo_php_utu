@@ -10,20 +10,46 @@ $(function () {
         return new bootstrap.Alert(element)
     })
 */
-    cargarGrilla();
 
     // $('#select_unidad').on('change', onSelectUnidadChange);
     // $('#btn_agregar').attr("disabled", false);
     // $('#btn_cerrar').hide();
-    //   $('#btn_listar').on('click', onClickBotonListar);
+
+    $('#btn_agregar').on('click', onClickBotonAgregar);
+
+    activarMensajes();
+
+    cargarGrilla();
+ 
+     aplicarDataTables();
+
+});
+
+function aplicarDataTables() {
+  
+    $('#tabla_personas_DataTables').dataTable({
+       ajax: 'listar.php',
+       "columns": [
+        { "data": "cedula" },
+        { "data": "primer_nombre" },
+        { "data": "segundo_nombre" },
+        { "data": "primer_apellido" },
+        { "data": "segundo_apellido" },
+        { "data": "fecha_nac" }
+    ]
+    });
+
+}
+
+function activarMensajes() {
 
     var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
     var alertTrigger = document.getElementById('liveAlertBtn')
 
     function alert(message, type) {
         var wrapper = document.createElement('div')
-        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + 
-        message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' +
+            message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
         alertPlaceholder.append(wrapper)
     }
 
@@ -33,27 +59,24 @@ $(function () {
         })
     }
 
-});
+}
 
-
-function agregarPersona() {
+function onClickBotonAgregar() {
 
     var cedula = $("#txt_cedula").val();
-    var nombre = $("#txt_nombre").val();
-    var apellido = $("#txt_apellido").val();
-    var email = $("#txt_email").val();
-    var telefono = $("#txt_telefono").val();
-    var direccion = $("#txt_direccion").val();
-    var unidad = $("#select_unidad").val();
+    var n1 = $("#txt_primer_nombre").val();
+    var n2 = $("#txt_segundo_nombre").val();
+    var a1 = $("#txt_primer_apellido").val();
+    var a2 = $("#txt_segundo_apellido").val();
+    var fnac = $("#txt_fecha_nac").val();
 
     var data = {
         'cedula': cedula,
-        'nombre': nombre,
-        'apellido': apellido,
-        'email': email,
-        'telefono': telefono,
-        'direccion': direccion,
-        'unidad': unidad
+        'primer_nombre': n1,
+        'segundo_nombre': n2,
+        'primer_apellido': a1,
+        'segundo_apellido': a2,
+        'fecha_nac': fnac
     };
 
     $.ajax({
@@ -64,10 +87,15 @@ function agregarPersona() {
     }).done(function (data) {  // Función que se ejecuta si todo ha ido bien
         // Escribimos en el div consola el mensaje devuelto por el servidor
         // El método JSON.stringify() convierte un objeto o valor de JavaScript
+        var dataJSON = JSON.parse(JSON.stringify(data));
+        alert(dataJSON);
+        cargarGrilla();
 
-}).fail(function (jqXHR, textStatus) {
 
-});
+    }).fail(function (jqXHR, textStatus) {
+        alert("ERROR:: " + textStatus + " - " + jqXHR.status);
+
+    });
 }
 
 function cargarGrilla() {
@@ -88,7 +116,7 @@ function cargarGrilla() {
         // una función de reemplazo, o si se especifican las propiedades mediante un array de reemplazo.
         construirTabla("#tabla_personas_jquery", JSON.stringify(data));
 
-        generar_tabla("#tabla_personas_js", JSON.stringify(data));
+       // construirTabla("#tabla_personas_DataTables", JSON.stringify(data));
 
         console.log("La solicitud se ha completado correctamente.");
 
@@ -145,11 +173,3 @@ function Cabezales(datos, selector) {
     return columns;
 }
 
-function generar_tabla(selector, datos) {
-
-    for (x of datos) {
-        console.log(x.cedula + ' ' + x.primer_nombre);
-
-    }
-
-}
