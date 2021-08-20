@@ -15,6 +15,11 @@ $(function () {
     // $('#btn_agregar').attr("disabled", false);
     // $('#btn_cerrar').hide();
 
+
+    
+   //  $('#select_unidad') igual a  document.getElementById('txt_cedula')
+
+
     $('#btn_agregar').on('click', onClickBotonAgregar);
 
     activarMensajes();
@@ -63,14 +68,14 @@ function activarMensajes() {
 
 function onClickBotonAgregar() {
 
-    var cedula = $("#txt_cedula").val();
+    let cedula = $("#txt_cedula").val();
     var n1 = $("#txt_primer_nombre").val();
     var n2 = $("#txt_segundo_nombre").val();
     var a1 = $("#txt_primer_apellido").val();
     var a2 = $("#txt_segundo_apellido").val();
     var fnac = $("#txt_fecha_nac").val();
 
-    var data = {
+    var datos_entrada = {
         'cedula': cedula,
         'primer_nombre': n1,
         'segundo_nombre': n2,
@@ -79,15 +84,32 @@ function onClickBotonAgregar() {
         'fecha_nac': fnac
     };
 
+
+    // {
+    //     "primer_nombre": "Juan",
+    //         "primer_apellido": "Smith",
+    //             "direccion": {
+    //                      "calle": "21 de Setiembre",
+    //                      "ciudad": "Montevideo",
+    //                      "barrio": "Pocitos",
+    //                     "codigo_postal": 10021
+    //     },
+    //     "telefonos": [
+    //         "099732123",
+    //         "646123456"
+    //     ]
+    // }
+
+
     $.ajax({
         type: 'POST',  // Envío con método POST
         dataType: "json", // Datos devueltos en formato JSON
         url: 'agregar.php',  // Fichero destino (el PHP que trata los datos)
-        data: data  // Datos que se envían
-    }).done(function (data) {  // Función que se ejecuta si todo ha ido bien
+        data: datos_entrada // Datos que se envían
+    }).done(function (data_salida) {  // Función que se ejecuta si todo ha ido bien
         // Escribimos en el div consola el mensaje devuelto por el servidor
         // El método JSON.stringify() convierte un objeto o valor de JavaScript
-        var dataJSON = JSON.parse(JSON.stringify(data));
+        var dataJSON = JSON.parse(JSON.stringify(data_salida));
         alert(dataJSON);
         cargarGrilla();
 

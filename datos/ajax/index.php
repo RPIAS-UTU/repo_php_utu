@@ -15,6 +15,15 @@
 <body>
   <div class="container">
 
+
+  <?php
+
+  $numero = "23";
+  echo "Valor :: " . $numero  + 23 . "";
+
+?>
+  
+
     <div class="row">
       <div class="col">&nbsp;</div>
     </div>
