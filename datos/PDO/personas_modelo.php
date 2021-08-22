@@ -16,11 +16,28 @@ class Personas_Model extends Conexion
         try {
             
             $con = new Conexion();
-            $consulta = "SELECT cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM persona";
+            $consulta = "SELECT id_persona, cedula, primer_nombre, 
+            segundo_nombre, primer_apellido, segundo_apellido, fecha_nac FROM persona";
             $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
             
         } catch (Exception $e) {
-            throw new Exception('Falló la conexión con la DB: ' . $e->getMessage());
+            throw new Exception($e->getMessage());
+        }
+
+        return $resultado;
+    }
+
+
+    public static function Listar_Persona_Por_Cedula_Ajax($id_persona){
+        $resultado = null;
+        try {
+            
+            $con = new Conexion();
+            $consulta = "SELECT * FROM persona WHERE id_persona = '$id_persona'";
+            $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
 
         return $resultado;
@@ -138,9 +155,8 @@ class Personas_Model extends Conexion
             $insert->bindParam(7, $idInsert, PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT); 
             $insert->execute();
             return $idInsert;
-        } catch (PDOException $pe) {
-            // die es el equivalente a exit()
-            die("Error occurred: " . $pe->getMessage());
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -179,27 +195,30 @@ class Personas_Model extends Conexion
         return $idInsert;
     }
 
-    public static function Modificar_Persona_Static($cedula, $n1, $n2, $a1, $a2, $fnac)
+    public static function Modificar_Persona_Static($cedula, $n1, $n2, $a1, $a2, $fnac, $id_persona)
     {
         $con = new Conexion();
         $sql = "UPDATE persona SET 
+            cedula = :cedula,
             primer_nombre = :n1, 
             segundo_nombre = :n2, 
             primer_apellido = :a1, 
             segundo_apellido = :a2, 
             fecha_nac = :fnac
-            WHERE cedula = :cedula";
+            WHERE id_persona = :id_persona";
 
         $update = $con->prepare($sql);
 
+        $update->bindParam(':cedula', $cedula, PDO::PARAM_INT);
         $update->bindParam(':n1', $n1, PDO::PARAM_STR, 25);
         $update->bindParam(':n2', $n2, PDO::PARAM_STR, 25);
         $update->bindParam(':a1', $a1, PDO::PARAM_STR, 25);
         $update->bindParam(':a2', $a2, PDO::PARAM_STR, 25);
         $update->bindParam(':fnac', $fnac, PDO::PARAM_STR, 25);
-        $update->bindParam(':cedula', $cedula, PDO::PARAM_INT);
+        $update->bindParam(':id_persona', $id_persona, PDO::PARAM_INT);
             
         return $update->execute();
+
     }
 
     public function Modificar_Persona($cedula, $n1, $n2, $a1, $a2, $fnac)
@@ -221,12 +240,12 @@ class Personas_Model extends Conexion
         return $respuesta;
     }
 
-    public static function Eliminar_Persona_Static($cedula)
+    public static function Eliminar_Persona_Static($id_persona)
     {
         $con = new Conexion();
-        $sql = "DELETE FROM `persona` WHERE `cedula`= :cedula";
+        $sql = "DELETE FROM `persona` WHERE `id_persona`= :id_persona";
         $update = $con->prepare($sql);
-        $update->bindParam(':cedula', $cedula, PDO::PARAM_INT);
+        $update->bindParam(':id_persona', $id_persona, PDO::PARAM_INT);
         $respuesta = false;
         if ($update->execute())
             $respuesta = true;
