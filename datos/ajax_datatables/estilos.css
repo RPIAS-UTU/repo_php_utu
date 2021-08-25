@@ -12,3 +12,10 @@ body {
     border-radius: 5px;
     margin-top: 25px;
 }
+
+.login{
+
+    width: 50% !important;
+    margin-top: 100px !important;
+
+}

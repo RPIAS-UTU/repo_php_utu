@@ -111,6 +111,24 @@ INSERT INTO `empleado` (`id_empleado`, `id_persona`, `sueldo_base`) VALUES
 (6, 6, '53548.54');
 
 -- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
+  `id_usuario` int(11) NOT NULL primary key auto_increment,
+  `usuario` varchar(250) DEFAULT NULL,
+  `pass` varchar(250) DEFAULT NULL,
+  `habilitado` bit NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `usuarios` (`usuario`, `pass`, `habilitado`) VALUES
+('admin@admin.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1),
+('user@user.com', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', 0),
+('root@root.com', '4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2', 1);
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `jornalero`

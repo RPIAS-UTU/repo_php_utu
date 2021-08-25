@@ -1,7 +1,10 @@
+// Repo de ejemplo
 // https://github.com/knysh-irina/Datatables-ajax-php-mysql
+
 $(function () {
   
     $('#btn_agregar').on('click', onClickBotonAgregar);
+    $('#btn_salir').on('click', onClickBotonSalir);
 
     // Listar Personas
     var dataTable = $('#user_data').DataTable({
@@ -39,7 +42,7 @@ $(function () {
         var primer_nombre = $('#txt_primer_nombre').val();
         var primer_apellido = $('#txt_primer_apellido').val();
 
-        // Requeriri campos desde JS
+        // Requerir campos desde JS
         if (cedula != '' && primer_nombre != '' && primer_apellido != '') {
             $.ajax({
                 url: "agregar.php",
@@ -123,6 +126,16 @@ function onClickBotonAgregar() {
 
 }
 
+function onClickBotonSalir(){
+
+    $.ajax({
+        url: "salir.php",
+        success: function (data) {
+            window.location.href = "../login/index_v2.php";
+        }
+    });
+
+}
 
 
 

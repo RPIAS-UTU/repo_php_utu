@@ -17,9 +17,7 @@ class Personas_Model extends Conexion
     {
         $this->cedula = $cedula;
     }
-
-
-  
+ 
 
     public function __construct()
     {
