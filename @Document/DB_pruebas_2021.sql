@@ -127,7 +127,7 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`rol`, `user_db`,`pass_db`, `habilitado`) VALUES
 ('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',1), -- ROL:: admin
 ('user', 'user',  '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb',1), -- ROL:: user
-('root', 'root', '4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',1); -- ROL:: root
+('miuser', 'miuser', '4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',1); -- ROL:: root
 -- --------------------------------------------------------
 --
 -- Estructura de tabla para la tabla `usuarios`
@@ -288,6 +288,18 @@ ALTER TABLE `empleado`
 ALTER TABLE `jornalero`
   ADD CONSTRAINT `FK_empleados_jornalero` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`);
 COMMIT;
+
+DROP USER IF EXISTS 'admin'@'localhost';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918';
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
+
+DROP USER IF EXISTS 'user'@'localhost';
+CREATE USER 'user'@'localhost' IDENTIFIED BY '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
+
+DROP USER IF EXISTS 'miuser'@'localhost';
+CREATE USER 'miuser'@'localhost' IDENTIFIED BY '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb';
+GRANT ALL PRIVILEGES ON *.* TO 'miuser'@'localhost';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
