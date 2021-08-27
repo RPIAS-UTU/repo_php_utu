@@ -13,8 +13,15 @@
 </head>
 
 <body>
+
+<?php
+    //if($_SESSION['usuario_logueado'] == null)
+	//	header("Location: ../login/index_v2.php");
+?>
+
+
 	<div class="container box">
-		<h1 align="center">CRUD con Ajax y Data Tables</h1>
+		<h1 align="center">CRUD con Ajax y DataTables</h1>
 		<br />
 		<div>
 			<br />

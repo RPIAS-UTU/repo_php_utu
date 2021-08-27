@@ -24,20 +24,24 @@ if (isset($_POST["g-recaptcha-response"])) { // Si existe el campo del recaptcha
 
     if ($datos->success == true && $action == 'validar_usuario') {  // Si pasa pruebas de verificación de recaptcha y la acción es validar_usuario
 
-        $usu = new Usuario();
-
         $pass_hash =  hash('sha256', $pass);
         
-        $res = $usu->getUsuarioLogin($email, $pass_hash);
+        $usu = Usuario::getUsuarioLogin($email, $pass_hash);
 
-        if ($res != null) {
+        if ($usu != null) {
 
-            $usu->setUsuario($res[0]['usuario']);
-            $usu->setHabilitado($res[0]['habilitado']);
+            if ($usu->getHabilitado() == 1) { // login :: login
 
-            if ($usu->getHabilitado() == 1) {
                 session_start();    // Iniciamos la sesión
-                $_SESSION['usuario'] = $usu->getUsuario();
+                $_SESSION['usuario_logueado'] = $usu->getUsuario();
+                $_SESSION['id_rol_logueado'] = $usu->getRol()->getRol();
+                $_SESSION['user_db'] = $usu->getrol()->getUser_db();
+                $_SESSION['pass_db'] = $usu->getrol()->getPass_db();
+
+                // echo "Usuario Logueado :: " . $_SESSION['usuario_logueado'];
+                // echo "Rol Logueado :: " . $_SESSION['id_rol_logueado'];
+                // echo "Usuario DB :: " . $_SESSION['user_db'];
+                // echo "PASS DB :: " . $_SESSION['pass_db'];
 
                 header("Location: ../ajax_datatables/index.php");
             }else{

@@ -61,7 +61,7 @@ $(function () {
         }
     });
 
-   // Modificar Persona
+   // Cargar datos de Persona
     $(this).on('click', '.update', function () {
         let persona_id = $(this).attr("id"); // obtengo del atributo id del boton el id de la persona
         $.ajax({
@@ -116,6 +116,10 @@ function onClickBotonAgregar() {
     $('.modal-title').text("Agregar Persona");
     $('#accion').val("Agregar");
     $('#operacion').val("Agregar");
+
+
+
+
 
     // $('#txt_cedula').val("18744756");
     // $('#txt_primer_nombre').val("Juan");

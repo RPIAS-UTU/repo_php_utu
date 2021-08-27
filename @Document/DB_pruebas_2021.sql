@@ -110,23 +110,41 @@ INSERT INTO `empleado` (`id_empleado`, `id_persona`, `sueldo_base`) VALUES
 (5, 5, '53548.54'),
 (6, 6, '53548.54');
 
+
+-- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `roles`
+--
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
+  `id_rol` int(11) NOT NULL primary key auto_increment,
+  `rol` varchar(250) DEFAULT NULL,
+  `user_db` varchar(250) DEFAULT NULL,
+  `pass_db` varchar(250) DEFAULT NULL,
+  `habilitado` bit NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `roles` (`rol`, `user_db`,`pass_db`, `habilitado`) VALUES
+('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',1), -- ROL:: admin
+('user', 'user',  '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb',1), -- ROL:: user
+('root', 'root', '4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',1); -- ROL:: root
 -- --------------------------------------------------------
 --
 -- Estructura de tabla para la tabla `usuarios`
 --
-
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL primary key auto_increment,
   `usuario` varchar(250) DEFAULT NULL,
   `pass` varchar(250) DEFAULT NULL,
+  `id_rol` int(11) DEFAULT NULL,
   `habilitado` bit NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `usuarios` (`usuario`, `pass`, `habilitado`) VALUES
-('admin@admin.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1),
-('user@user.com', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', 0),
-('root@root.com', '4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2', 1);
+INSERT INTO `usuarios` (`usuario`, `pass`, `id_rol`, `habilitado`) VALUES
+('admin@admin.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',1,1), -- ROL:: admin
+('user@user.com', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb',2, 0), -- ROL:: user
+('root@root.com', '4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2', 3,1); -- ROL:: root
 
 -- --------------------------------------------------------
 

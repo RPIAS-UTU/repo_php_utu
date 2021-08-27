@@ -20,7 +20,7 @@ $datos = json_decode($result, true);
 
 //var_dump($datos);
 
-if($datos["success"] == true && $datos["score"] >= 0.5){  // Si el usuario es correcto y el score es mayor o igual a 0.5
+if($datos["success"] == true && $datos["score"] >= 0.9){  // Si el usuario es correcto y el score es mayor o igual a 0.5
    if($datos["action"] ==  $action){  // Si la accion es la misma que la que se envió
         // valido usuarios
 
