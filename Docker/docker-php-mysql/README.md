@@ -10,7 +10,7 @@ Utilizar *Docker* es sencillo, pero existen tantas imágenes, versiones y formas
 
 ## Configurar el ambiente de desarrollo
 
-Puedes utilizar la configuración por defecto, pero en ocasiones es recomendable modificar la configuración para que sea igual al servidor de producción. La configuración se ubica en el archivo `.env` con las siguientes opciones:
+Puedes utilizar la configuración por defecto, pero en ocasiones es recomendable modificar la configuración para que sea igual al servidor de producción. La configuración se ubica en el archivo `.env` el cual se encuentra renombrado a bk.env, renombrarlo al clonar el repositorio, este archivo cuenta con las siguientes opciones:
 
 * `PHP_VERSION` versión de PHP ([Versiones disponibles de PHP](https://github.com/docker-library/docs/blob/master/php/README.md#supported-tags-and-respective-dockerfile-links)).
 * `PHP_PORT` puerto para servidor web.
