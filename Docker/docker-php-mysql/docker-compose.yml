@@ -1,12 +1,14 @@
 version: '3'
 
 services:
-  mysql:
+  mysql: # nombre del servicio
     build:
-      context: ./docker/mysql # ruta del directorio donde esta el contenedor
+      context: ./docker/mysql # ruta del directorio donde encontrar el DockerFile del contenedor
       args: # argumentos que se pasan al contenedor
         mysql_version: ${MYSQL_VERSION} # version de mysql
     container_name: ${COMPOSE_PROJECT_NAME}-mysql # nombre del contenedor
+    volumes: # volumenes que se montan en el contenedor
+      - ./db:/var/lib/mysql # ruta de la carpeta donde se guandan las Bases de Datos
     environment: # variables de entorno
       MYSQL_DATABASE: ${MYSQL_DATABASE} # nombre de la base de datos
       MYSQL_USER: ${MYSQL_USER} # usuario de mysql
@@ -14,11 +16,11 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD} # contraseña de mysql
     ports: # puertos que se abren en el contenedor
       - "3306:3306" # puerto de mysql
-    restart: always # si se reinicia el contenedor
+    restart: always # establece si se reinicia el contenedor al cambiar de estado
 
   php: # nombre del servicio
-    build: # ruta del directorio donde esta el contenedor
-      context: ./docker/php # ruta del directorio donde esta el contenedor
+    build: # construir
+      context: ./docker/php # ruta del directorio donde encontrar el DockerFile del contenedor
       args: # argumentos que se pasan al contenedor
         php_version: ${PHP_VERSION} # version de php
     container_name: ${COMPOSE_PROJECT_NAME}-php # nombre del contenedor

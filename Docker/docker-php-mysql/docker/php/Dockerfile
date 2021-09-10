@@ -3,7 +3,7 @@
 ARG php_version 
 
 # define el repositorio o ruta donde se encuentra el codigo fuente
-FROM php:${php_version}
+FROM php:7.3
 
 # ejecuta en el contenedor el comando necesario para instalar las librerias 
 # necesarias para utilizar mysql
