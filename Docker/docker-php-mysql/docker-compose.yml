@@ -3,29 +3,28 @@ version: '3'
 services:
   mysql:
     build:
-      context: ./docker/mysql
-      args:
-        mysql_version: ${MYSQL_VERSION}
-    container_name: ${COMPOSE_PROJECT_NAME}-mysql
-    volumes:
-      - ./db:/var/lib/mysql
-    environment:
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - ${MYSQL_PORT}:3306
-    restart: always
+      context: ./docker/mysql # ruta del directorio donde esta el contenedor
+      args: # argumentos que se pasan al contenedor
+        mysql_version: ${MYSQL_VERSION} # version de mysql
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql # nombre del contenedor
+    environment: # variables de entorno
+      MYSQL_DATABASE: ${MYSQL_DATABASE} # nombre de la base de datos
+      MYSQL_USER: ${MYSQL_USER} # usuario de mysql
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} # contraseña de mysql
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD} # contraseña de mysql
+    ports: # puertos que se abren en el contenedor
+      - "3306:3306" # puerto de mysql
+    restart: always # si se reinicia el contenedor
 
-  php:
-    build:
-      context: ./docker/php
-      args:
-        php_version: ${PHP_VERSION}
-    container_name: ${COMPOSE_PROJECT_NAME}-apache
-    ports:
-      - "${PHP_PORT}:80"
-    volumes:
-      - ./www:/var/www/html
-    links:
-      - mysql
+  php: # nombre del servicio
+    build: # ruta del directorio donde esta el contenedor
+      context: ./docker/php # ruta del directorio donde esta el contenedor
+      args: # argumentos que se pasan al contenedor
+        php_version: ${PHP_VERSION} # version de php
+    container_name: ${COMPOSE_PROJECT_NAME}-php # nombre del contenedor
+    ports: # puertos que se abren en el contenedor
+      - "${PHP_PORT}:80" # puerto de php
+    volumes: # volumenes que se montan en el contenedor
+      - ./www:/var/www/html # ruta de la carpeta www
+    links: # servicios que se conectan con el contenedor
+      - mysql # conecta con el servicio mysql
