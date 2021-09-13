@@ -3,11 +3,14 @@
 ARG php_version 
 
 # define el repositorio o ruta donde se encuentra el codigo fuente
-FROM php:7.3
+FROM php:${php_version}
+
+RUN apt-get update && \
+    apt-get install vim git -y
 
 # ejecuta en el contenedor el comando necesario para instalar las librerias 
 # necesarias para utilizar mysql
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql 
 
 # Habilitamos el módulo de reescritura de Apache.
 # El módulo mod_rewrite sirve para poder reescribir la URL del navegador

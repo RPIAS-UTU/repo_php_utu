@@ -1,5 +1,5 @@
 version: '3'
-
+# https://ualmtorres.github.io/SeminarioDockerPresentacion/
 services:
   mysql: # nombre del servicio
     build:
@@ -28,5 +28,6 @@ services:
       - "${PHP_PORT}:80" # puerto de php
     volumes: # volumenes que se montan en el contenedor
       - ./www:/var/www/html # ruta de la carpeta www
+    # command: ['/bin/sh -c','https://rpias:1wqwlnyX4DW0aFSX8NwD@github.com/rpias/repo_pruebas_utu'] # comando que se ejecuta en el contenedor
     links: # servicios que se conectan con el contenedor
       - mysql # conecta con el servicio mysql
