@@ -5,6 +5,8 @@ ARG php_version
 # define el repositorio o ruta donde se encuentra el codigo fuente
 FROM php:${php_version}
 
+# actualizamos el repositorio e instalamos las 
+# vim y git (-y) para que no se pregunte si queremos instalar
 RUN apt-get update && \
     apt-get install vim git -y
 
