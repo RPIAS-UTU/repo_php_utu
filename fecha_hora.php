@@ -19,21 +19,19 @@ https://unipython.com/obtener-la-fecha-actual-con-php/
 -->
 
 <?php
-$hoy = getdate();
-print_r($hoy);
+// $hoy = getdate();
+ print_r($hoy);
 
 //Establecer la información local en castellano de España
-setlocale(LC_TIME,"es_ES");
+ setlocale(LC_TIME,"es_ES");
 
  // Obteniendo la fecha actual del sistema con PHP
- $fechaActual = date('d-m-Y');
- echo "<br><br>";
- echo $fechaActual;
- $fechaActual = date('d/m/Y');
- echo "<br><br>";
- echo $fechaActual;
-
-
+  $fechaActual = date('d-m-Y');
+  echo "<br><br>";
+  echo $fechaActual;
+  $fechaActual = date('d/m/Y');
+  echo "<br><br>";
+  echo $fechaActual;
 
 
 
