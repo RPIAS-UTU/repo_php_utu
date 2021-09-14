@@ -1,9 +1,0 @@
-# Hidden files
-*.DS_Store
-*Thumbs.db
-
-# editor files
-.idea*
-
-# composer vendor files
-vendor/
