@@ -21,9 +21,9 @@ $(function () {
             'pdfHtml5'
         ],
         "pageLength": 5,
-        "processing": true,
-        "serverSide": false,
-        "order": [],
+        "processing": true, // procesar del lado del servidor (solo para millones de registros)
+        "serverSide": false, // se procesa del lado del servidor DB
+        "order": [], // ordena por los campos establecidos ej.: [0, 'desc']
         "ajax": {
             url: "listar.php",
             type: "POST"
@@ -48,8 +48,8 @@ $(function () {
                 url: "agregar.php",
                 method: 'POST',
                 data: new FormData(this), // obtiene los datos del formulario donde se presiono el submit
-                contentType: false,
-                processData: false,
+                contentType: false, // No es necesario especificar - no especifica el tipo de contenido, por defecto esta seteado como: contentType (default: 'application/x-www-form-urlencoded; charset=UTF-8')
+                processData: true, // No es necesario especificar - refiere a los datos pasados en Data, cualquier cosa que le pasemos se convertira en una cadena, por defecto esta seteado como: processData (default: true)
                 success: function (data) {
                     $('#frm_persona')[0].reset();
                     $('#personaModal').modal('hide');

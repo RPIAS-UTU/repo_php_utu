@@ -33,6 +33,23 @@ class Personas_Model extends Conexion
             $consulta = "SELECT id_persona, cedula, primer_nombre, 
             segundo_nombre, primer_apellido, segundo_apellido, fecha_nac FROM persona";
             $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!$resultado) {
+
+                /*
+                $con = new Conexion();
+              
+                $fileSQL = file_get_contents('../../@Document/DB_pruebas_2021.sql');
+                $con->curl_multi_add_handle($fileSQL);
+                
+                $consulta = "SELECT id_persona, cedula, primer_nombre, 
+                segundo_nombre, primer_apellido, segundo_apellido, fecha_nac FROM persona";
+                $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
+                */
+
+            }
+
+
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
