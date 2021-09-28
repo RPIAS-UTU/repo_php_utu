@@ -91,12 +91,12 @@ if(isset($_POST['txt_nombre']) && isset($_POST['txt_email']) && isset($_POST['tx
 
         <div class="col">
             <label for="txt_host" class="form-label">Servidor SMTP</label>
-            <input type="text" class="form-control" id="txt_host" name="txt_host" placeholder="smtp-relay.gmail.com">
+            <input type="text" class="form-control" id="txt_host" name="txt_host" placeholder="smtp.gmail.com">
         </div>
 
         <div class="col">
             <label for="txt_puerto" class="form-label">Puerto Servidor SMTP</label>
-            <input type="text" class="form-control" id="txt_puerto" name="txt_puerto" placeholder="587">
+            <input type="text" class="form-control" id="txt_puerto" name="txt_puerto" placeholder="465">
         </div>
 
 
