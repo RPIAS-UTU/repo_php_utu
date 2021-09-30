@@ -29,7 +29,7 @@ $(function () {
             type: "POST"
         },
         "columnDefs": [{ 
-            "targets": [5, 6], 
+            "targets": [6, 7], 
             "orderable": false // desabilito orden y busqueda en estas columnas
         }]
     });
