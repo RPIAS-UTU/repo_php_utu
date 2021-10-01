@@ -35,21 +35,33 @@ if(isset($_POST['txt_nombre']) && isset($_POST['txt_email']) && isset($_POST['tx
     $mail = new PHPMailer(true);
 
     try {
-        $mail->SMTPDebug = 1;  // Sacar esta línea para no mostrar salida debug
-        $mail->isSMTP();
-        $mail->Host = $datos["host"];  // Host de conexión SMTP
-        $mail->SMTPAuth = true;
-        $mail->Username = $datos["email_remitente"];  // Usuario SMTP
-        $mail->Password =  $datos["password"];   // Password SMTP
-        $mail->SMTPSecure = 'tls';     // Activar seguridad TLS
-        $mail->Port = $datos["puerto"];        // Puerto SMTP
+
+         $mail->SMTPDebug = 1;  // Sacar esta línea para no mostrar salida debug
+         $mail->isSMTP();
+         $mail->Host = $datos["host"];  // Host de conexión SMTP
+         $mail->SMTPAuth = true;
+         $mail->Username = $datos["email_remitente"];  // Usuario SMTP
+         $mail->Password =  $datos["password"];   // Password SMTP
+         $mail->SMTPSecure = 'tls';     // Activar seguridad TLS
+         $mail->Port = $datos["puerto"];        // Puerto SMTP
+
+
+        // EJEMPLO DE CONFIGURACIÓN PARA SERVIDOR DEDICADO
+        // $mail->SMTPDebug = 1;  // Sacar esta línea para no mostrar salida debug
+        // $mail->isSMTP();
+        // $mail->Host = 'l6000060.ferozo.com';  // Host de conexión SMTP
+        // $mail->SMTPAuth = true;
+        // $mail->Username = 'admin@pias.uy';  // Usuario SMTP
+        // $mail->Password =  'xxxxxxxxx';   // Password SMTP
+        // $mail->SMTPSecure = 'tls';     // Activar seguridad TLS
+        // $mail->Port = 465;        // Puerto SMTP
 
         #$mail->SMTPOptions = ['ssl'=> ['allow_self_signed' => true]];  // Descomentar si el servidor SMTP tiene un certificado autofirmado
         #$mail->SMTPSecure = false;		// Descomentar si se requiere desactivar cifrado (se suele usar en conjunto con la siguiente línea)
         #$mail->SMTPAutoTLS = false;	// Descomentar si se requiere desactivar completamente TLS (sin cifrado)
     
-        $mail->setFrom($datos["email_remitente"]);		// Mail del remitente
-        $mail->addAddress($datos["email_destinatario"]);     // Mail del destinatario
+        $mail->setFrom('admin@pias.uy');		// Mail del remitente
+        $mail->addAddress('rpias03@gmail.com');     // Mail del destinatario
     
         $mail->isHTML(true);
         $mail->Subject = 'Prueba de envío de correo enciada por: ' . $datos["email_remitente"];  // Asunto del mensaje

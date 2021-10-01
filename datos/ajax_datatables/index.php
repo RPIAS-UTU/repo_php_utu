@@ -36,7 +36,7 @@
 				</button>
 			</div>
 			<br /><br />
-			<table id="user_data" class="table table-bordered table-striped">
+			<table id="tabla_personas" class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<th>Cédula</th>

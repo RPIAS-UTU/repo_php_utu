@@ -7,7 +7,7 @@ $(function () {
     $('#btn_salir').on('click', onClickBotonSalir);
 
     // Listar Personas
-    var dataTable = $('#user_data').DataTable({
+    var dataTable = $('#tabla_personas').DataTable({
         "language": { url: 'Spanish.json'},
         "dom": 'Bfrtip', // https://datatables.net/reference/option/dom 
         //"dom": 'lrtip',
@@ -29,7 +29,7 @@ $(function () {
             type: "POST"
         },
         "columnDefs": [{ 
-            "targets": [5, 6], 
+            "targets": [6, 7], 
             "orderable": false // desabilito orden y busqueda en estas columnas
         }]
     });
