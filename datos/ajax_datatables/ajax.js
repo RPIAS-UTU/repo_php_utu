@@ -36,24 +36,29 @@ $(function () {
     
     // Agregar Persona
     $(this).on('submit', '#frm_persona', function (event) {
+        
         event.preventDefault(); // Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
         
-        var cedula = $('#cedula').val();
+        var cedula = $('#txt_cedula').val();
         var primer_nombre = $('#txt_primer_nombre').val();
         var primer_apellido = $('#txt_primer_apellido').val();
 
+        //var formData = new FormData($('#frm_persona')[0]); // otra forma de hacerlo
+
         // Requerir campos desde JS
         if (cedula != '' && primer_nombre != '' && primer_apellido != '') {
+
             $.ajax({
                 url: "agregar.php",
                 method: 'POST',
-                data: new FormData(this), // obtiene los datos del formulario donde se presiono el submit
-                contentType: false, // No es necesario especificar - no especifica el tipo de contenido, por defecto esta seteado como: contentType (default: 'application/x-www-form-urlencoded; charset=UTF-8')
-                processData: true, // No es necesario especificar - refiere a los datos pasados en Data, cualquier cosa que le pasemos se convertira en una cadena, por defecto esta seteado como: processData (default: true)
+                data: new FormData(this), 
                 success: function (data) {
                     $('#frm_persona')[0].reset();
                     $('#personaModal').modal('hide');
                     dataTable.ajax.reload();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
                 }
             });
         } else {
@@ -83,7 +88,7 @@ $(function () {
 
                 $('.modal-title').text("Editar Persona");
                 $('#h_persona_id').val(persona_id);
-                $('#accion').val("Editar");
+                $('#btn_accion').val("Editar");
                 $('#h_operacion').val("Editar");
             }
         })
@@ -114,12 +119,8 @@ function onClickBotonAgregar() {
 
     $('#frm_persona')[0].reset();
     $('.modal-title').text("Agregar Persona");
-    $('#accion').val("Agregar");
-    $('#operacion').val("Agregar");
-
-
-
-
+    $('#btn_accion').val("Agregar");
+    $('#h_operacion').val("Agregar");
 
     // $('#txt_cedula').val("18744756");
     // $('#txt_primer_nombre').val("Juan");

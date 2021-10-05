@@ -1,7 +1,19 @@
 <?php
 include_once('../PDO/personas_modelo.php');
 
+
+echo "<BR /> " . $_POST["txt_cedula"];
+echo "<BR /> " . $_POST["txt_primer_nombre"];
+echo "<BR /> " . $_POST["txt_segundo_nombre"];
+echo "<BR /> " . $_POST["txt_primer_apellido"];
+echo "<BR /> " . $_POST["txt_segundo_apellido"];
+echo "<BR /> " . $_POST["txt_fecha_nac"];
+echo "<BR /> " . $_POST["h_persona_id"];
+
+
 // Verifico que "operacion" tenga algun valor
+
+/*
 if(isset($_POST["h_operacion"]))
 {
 	// Verifico que "operacion" sea igual a "agregar"
@@ -23,6 +35,9 @@ if(isset($_POST["h_operacion"]))
 
 	if($_POST["h_operacion"] == "Editar")
 	{
+
+
+
 		$persona_modificada = Personas_Model::Modificar_Persona_Static(
 			$_POST["txt_cedula"],
 			$_POST["txt_primer_nombre"],
@@ -38,5 +53,7 @@ if(isset($_POST["h_operacion"]))
 		
 	}
 }
+
+*/
 
 ?>
