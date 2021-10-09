@@ -1,23 +1,10 @@
 <?php
 include_once('../PDO/personas_modelo.php');
 
-
-echo "<BR /> " . $_POST["txt_cedula"];
-echo "<BR /> " . $_POST["txt_primer_nombre"];
-echo "<BR /> " . $_POST["txt_segundo_nombre"];
-echo "<BR /> " . $_POST["txt_primer_apellido"];
-echo "<BR /> " . $_POST["txt_segundo_apellido"];
-echo "<BR /> " . $_POST["txt_fecha_nac"];
-echo "<BR /> " . $_POST["h_persona_id"];
-
-
-// Verifico que "operacion" tenga algun valor
-
-/*
 if(isset($_POST["h_operacion"]))
 {
 	// Verifico que "operacion" sea igual a "agregar"
-	if($_POST["h_operacion"] == "Agregar")
+	if($_POST["h_operacion"] === "Agregar")
 	{
 		$id_persona_ingredada  = Personas_Model::Agregar_Persona_Static(
 			$_POST["txt_cedula"],
@@ -28,17 +15,20 @@ if(isset($_POST["h_operacion"]))
 			date("Ymd", strtotime($_POST["txt_fecha_nac"]))
 		);	
 
-		if(!empty($id_persona_ingredada))
-			echo $id_persona_ingredada;
-		
+		if(!empty($id_persona_ingredada)){
+
+			if($id_persona_ingredada > 0)
+				echo "Datos Ingresados con Éxito";
+			else
+				echo "Error: " . $id_persona_ingredada;
+		}
+					
 	}
 
-	if($_POST["h_operacion"] == "Editar")
-	{
+	if($_POST["h_operacion"] === "Editar"){
 
-
-
-		$persona_modificada = Personas_Model::Modificar_Persona_Static(
+		$pm = new Personas_Model();
+		$persona_modificada = $pm->Modificar_Persona(
 			$_POST["txt_cedula"],
 			$_POST["txt_primer_nombre"],
 			$_POST["txt_segundo_nombre"],
@@ -48,12 +38,17 @@ if(isset($_POST["h_operacion"]))
 			$_POST["h_persona_id"]
 		);
 
-		if(!empty($persona_modificada))
-			echo $persona_modificada;
+		if(!empty($persona_modificada)){
+
+			if($persona_modificada > 0)
+				echo "Datos Modificados con Éxito";
+			else
+				echo "Error: " . $persona_modificada;
+		}
 		
 	}
 }
 
-*/
+
 
 ?>

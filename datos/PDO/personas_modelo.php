@@ -17,7 +17,7 @@ class Personas_Model extends Conexion
     {
         $this->cedula = $cedula;
     }
- 
+
 
     public function __construct()
     {
@@ -46,17 +46,13 @@ class Personas_Model extends Conexion
                 segundo_nombre, primer_apellido, segundo_apellido, fecha_nac FROM persona";
                 $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
                 */
-
             }
-
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 
         return $resultado;
     }
-
 
     public static function Listar_Persona_Por_Cedula_Ajax($id_persona)
     {
@@ -207,63 +203,77 @@ class Personas_Model extends Conexion
     public static function Agregar_Persona_Static($cedula, $n1, $n2, $a1, $a2, $fnac)
     {
 
-        $con = new Conexion();
-        $sql = "INSERT INTO persona (
-            cedula, 
-            primer_nombre, 
-            segundo_nombre, 
-            primer_apellido, 
-            segundo_apellido, 
-            fecha_nac) VALUES (?,?,?,?,?,?)";
-        $insert = $con->prepare($sql);
-        $arrData = array($cedula, $n1, $n2, $a1, $a2, $fnac);
-        $insert->execute($arrData);
-        $idInsert = $con->lastInsertId();
-        return $idInsert;
+        try {
+            $con = new Conexion();
+            $sql = "INSERT INTO persona (
+                cedula, 
+                primer_nombre, 
+                segundo_nombre, 
+                primer_apellido, 
+                segundo_apellido, 
+                fecha_nac) VALUES (?,?,?,?,?,?)";
+            $insert = $con->prepare($sql);
+            $arrData = array($cedula, $n1, $n2, $a1, $a2, $fnac);
+            $insert->execute($arrData);
+            $idInsert = $con->lastInsertId();
+            return $idInsert;
+        } catch (PDOException $e) {
+            return new Exception($e->getMessage());
+        }
     }
 
     public static function Modificar_Persona_Static($cedula, $n1, $n2, $a1, $a2, $fnac, $id_persona)
     {
-        $con = new Conexion();
-        $sql = "UPDATE persona SET 
-            cedula = :cedula,
-            primer_nombre = :n1, 
-            segundo_nombre = :n2, 
-            primer_apellido = :a1, 
-            segundo_apellido = :a2, 
-            fecha_nac = :fnac
-            WHERE id_persona = :id_persona";
 
-        $update = $con->prepare($sql);
+        try {
+            $con = new Conexion();
+            $sql = "UPDATE persona SET 
+                cedula = :cedula,
+                primer_nombre = :n1, 
+                segundo_nombre = :n2, 
+                primer_apellido = :a1, 
+                segundo_apellido = :a2, 
+                fecha_nac = :fnac
+                WHERE id_persona = :id_persona";
 
-        $update->bindParam(':cedula', $cedula, PDO::PARAM_INT);
-        $update->bindParam(':n1', $n1, PDO::PARAM_STR, 25);
-        $update->bindParam(':n2', $n2, PDO::PARAM_STR, 25);
-        $update->bindParam(':a1', $a1, PDO::PARAM_STR, 25);
-        $update->bindParam(':a2', $a2, PDO::PARAM_STR, 25);
-        $update->bindParam(':fnac', $fnac, PDO::PARAM_STR, 25);
-        $update->bindParam(':id_persona', $id_persona, PDO::PARAM_INT);
+            $update = $con->prepare($sql);
 
-        return $update->execute();
+            $update->bindParam(':cedula', $cedula, PDO::PARAM_INT);
+            $update->bindParam(':n1', $n1, PDO::PARAM_STR, 25);
+            $update->bindParam(':n2', $n2, PDO::PARAM_STR, 25);
+            $update->bindParam(':a1', $a1, PDO::PARAM_STR, 25);
+            $update->bindParam(':a2', $a2, PDO::PARAM_STR, 25);
+            $update->bindParam(':fnac', $fnac, PDO::PARAM_STR, 25);
+            $update->bindParam(':id_persona', $id_persona, PDO::PARAM_INT);
+
+            return $update->execute();
+        } catch (PDOException $e) {
+            return new Exception($e->getMessage());
+        }
     }
 
-    public function Modificar_Persona($cedula, $n1, $n2, $a1, $a2, $fnac)
+    public function Modificar_Persona($cedula, $n1, $n2, $a1, $a2, $fnac, $id_persona)
     {
+        try {
+            $con = new Conexion();
+            $sql = "UPDATE persona SET 
+                    cedula = ?,
+                    primer_nombre = ?, 
+                    segundo_nombre = ?, 
+                    primer_apellido = ?, 
+                    segundo_apellido = ?, 
+                    fecha_nac = ?
+                    WHERE id_persona = ?";
 
-        $con = new Conexion();
-        $sql = "UPDATE persona SET 
-            primer_nombre = ?, 
-            segundo_nombre = ?, 
-            primer_apellido = ?, 
-            segundo_apellido = ?, 
-            fecha_nac = ?
-            WHERE cedula = ?";
+            $update = $con->prepare($sql);
 
-        $update = $con->prepare($sql);
-        $arrData = array($n1, $n2, $a1, $a2, $fnac . $cedula);
-        if ($update->execute($arrData))
-            $respuesta = true;
-        return $respuesta;
+            $arrData = array($cedula, $n1, $n2, $a1, $a2, $fnac, $id_persona);
+
+            return $update->execute($arrData);
+
+        } catch (PDOException $e) {
+            return new Exception($e->getMessage());
+        }
     }
 
     public static function Eliminar_Persona_Static($id_persona)

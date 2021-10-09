@@ -9,7 +9,7 @@ $(function () {
     // Listar Personas
     var dataTable = $('#tabla_personas').DataTable({
         "language": { url: 'Spanish.json'},
-        "dom": 'Bfrtip', // https://datatables.net/reference/option/dom 
+        "dom": 'Bfrtip',  
         //"dom": 'lrtip',
         //"dom": '<"top"i>rt<"bottom"flp><"clear">',
         //"dom": '<lf<t>ip>',
@@ -21,29 +21,32 @@ $(function () {
             'pdfHtml5'
         ],
         "pageLength": 5,
-        "processing": true, // procesar del lado del servidor (solo para millones de registros)
-        "serverSide": false, // se procesa del lado del servidor DB
-        "order": [], // ordena por los campos establecidos ej.: [0, 'desc']
+        "processing": true, 
+        "serverSide": false, 
+        "order": [], 
         "ajax": {
             url: "listar.php",
             type: "POST"
         },
         "columnDefs": [{ 
             "targets": [6, 7], 
-            "orderable": false // desabilito orden y busqueda en estas columnas
+            "orderable": false 
         }]
     });
     
     // Agregar Persona
     $(this).on('submit', '#frm_persona', function (event) {
         
-        event.preventDefault(); // Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
+    
+        event.preventDefault();  // Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
         
         var cedula = $('#txt_cedula').val();
         var primer_nombre = $('#txt_primer_nombre').val();
         var primer_apellido = $('#txt_primer_apellido').val();
 
         //var formData = new FormData($('#frm_persona')[0]); // otra forma de hacerlo
+        //var formData = $("#formularioAgregar").serialize();
+        // data: new FormData(this), 
 
         // Requerir campos desde JS
         if (cedula != '' && primer_nombre != '' && primer_apellido != '') {
@@ -51,11 +54,14 @@ $(function () {
             $.ajax({
                 url: "agregar.php",
                 method: 'POST',
-                data: new FormData(this), 
+                data:$("#frm_persona").serialize(), 
                 success: function (data) {
+                    
                     $('#frm_persona')[0].reset();
                     $('#personaModal').modal('hide');
                     dataTable.ajax.reload();
+                    alert(data);
+                   
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -66,9 +72,12 @@ $(function () {
         }
     });
 
+
    // Cargar datos de Persona
     $(this).on('click', '.update', function () {
-        let persona_id = $(this).attr("id"); // obtengo del atributo id del boton el id de la persona
+        
+        let persona_id = $(this).attr("id"); 
+        
         $.ajax({
             url: "cargar_persona.php",
             method: "POST",
@@ -96,8 +105,10 @@ $(function () {
 
     // Eliminar Persona
     $(this).on('click', '.delete', function () {
-        var persona_id = $(this).attr("id"); // obtengo del atributo id del boton el id de la persona
+        var persona_id = $(this).attr("id"); 
+        
         if (confirm("¿Estas seguro de Eliminar este registro?")) {
+           
             $.ajax({
                 url: "eliminar.php",
                 method: "POST",

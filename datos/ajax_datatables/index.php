@@ -60,7 +60,7 @@
 <!-- Modal -->
 <div class="modal fade" id="personaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form method="post" id="frm_persona">
+		<form method="POST" id="frm_persona" target="_blank">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Agregar Persona</h5>

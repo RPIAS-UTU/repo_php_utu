@@ -1,0 +1,2 @@
+Contar las lineas de codigo: Aporte de Agustin Puesnte (ITI)
+(gci -include *.css, *.php, *.json, *.html, *.js, *.sql -recurse | select-string .).Count
