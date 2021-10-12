@@ -4,28 +4,12 @@ include_once("roles_modelo.php");
 
 class Usuario extends Conexion
 {
-
-    private $conexion;
-
-    private $usuario;
-    private $password;
-    private $rol;
-    private $habilitado;
-    private const USER = "root";
-    private const PASS = "";
-
-    public function __construct()
-    {
-        $this->conexion = new Conexion(self::USER, self::PASS);
-    }
-
     public static function getUsuarioLogin($login, $pass)
     {
         $usu = null;
         try {
-            $user_db = null;
-            $pass_db = null;
-            $con = Conexion::getConexion($user_db, $pass_db);
+            
+            $con = new Conexion();
             $consulta = "SELECT * FROM usuarios AS U
             INNER JOIN roles AS R ON U.id_rol = R.id_rol
             WHERE U.usuario = '$login' AND pass='$pass'";
@@ -49,7 +33,6 @@ class Usuario extends Conexion
 
         return $usu;
     }
-
 
 
     /**

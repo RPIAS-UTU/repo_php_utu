@@ -226,6 +226,53 @@ INSERT INTO `persona` (`id_persona`, `cedula`, `primer_nombre`, `segundo_nombre`
 (30, 19245911, 'R', 'E', 'P', 'R', '1975-11-03'),
 (31, 19245911, 'R', 'E', 'P', 'R', '1975-11-03');
 
+
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+DROP TABLE IF EXISTS `usuarios_api`;
+CREATE TABLE `usuarios_api` (
+  `UsuarioId` int(11) NOT NULL,
+  `Usuario` varchar(45) DEFAULT NULL,
+  `Password` varchar(45) DEFAULT NULL,
+  `Estado` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios_api` (`UsuarioId`, `Usuario`, `Password`, `Estado`) VALUES
+(1, 'usuario1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Activo'),
+(2, 'usuario2@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Activo'),
+(3, 'usuario3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Activo'),
+(4, 'usuario4@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Activo'),
+(5, 'usuario5@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Activo'),
+(6, 'usuario6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Activo'),
+(7, 'usuario7@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Inactivo'),
+(8, 'usuario8@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Inactivo'),
+(9, 'usuario9@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Inactivo');
+
+-- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `usuarios_token`
+--
+DROP TABLE IF EXISTS `usuarios_token`;
+CREATE TABLE `usuarios_token` (
+  `TokenId` int(11) NOT NULL AUTO_INCREMENT,
+  `UsuarioId` varchar(45) DEFAULT NULL,
+  `Token` varchar(45) DEFAULT NULL,
+  `Estado` varchar(45) CHARACTER SET armscii8 DEFAULT NULL,
+  `Fecha` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios_api`
+  MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Índices para tablas volcadas
 --
@@ -249,10 +296,6 @@ ALTER TABLE `jornalero`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`id_persona`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
@@ -289,6 +332,7 @@ ALTER TABLE `jornalero`
   ADD CONSTRAINT `FK_empleados_jornalero` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`);
 COMMIT;
 
+/*
 DROP USER IF EXISTS 'admin'@'localhost';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918';
 GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
@@ -300,6 +344,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
 DROP USER IF EXISTS 'miuser'@'localhost';
 CREATE USER 'miuser'@'localhost' IDENTIFIED BY '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb';
 GRANT ALL PRIVILEGES ON *.* TO 'miuser'@'localhost';
+*/
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

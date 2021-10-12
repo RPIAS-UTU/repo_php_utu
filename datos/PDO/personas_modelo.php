@@ -3,26 +3,249 @@ include_once("conexion.php");
 
 class Personas_Model extends Conexion
 {
-
     private $conexion;
+    private $tabla = "persona";
+    private $token = "";
 
+    private $id_persona;
     private $cedula;
-
-    public function getCedula()
-    {
-        return $this->cedula;
-    }
-
-    public function setPrimerNombre($cedula)
-    {
-        $this->cedula = $cedula;
-    }
-
+    private $primer_nombre;
+    private $segundo_nombre;
+    private $primer_apellido;
+    private $segundo_apellido;
+    private $fecha_nacimiento;
 
     public function __construct()
     {
         $this->conexion = new Conexion();
     }
+
+// Inicio API REST
+
+public function api_lista_personas(){
+    $query = "SELECT * FROM " . $this->tabla;
+    return parent::obtenerDatos($query);
+}
+
+public function api_lista_personas_paginado($pagina = 1){
+    
+    $inicio  = 0 ;
+    $cantidad = 10;
+    // pagina = 2
+    if($pagina > 1){
+        //   6   = (5 * (2-1))+1
+        $inicio = ($cantidad * ($pagina - 1)) + 1 ;
+        //  10      = 5 * 2           
+        $cantidad = $cantidad * $pagina;
+    }
+
+    $query = "SELECT * FROM " . $this->tabla . " limit $inicio, $cantidad";
+    return parent::obtenerDatos($query);
+}
+
+public function api_obtener_persona($id){
+    $query = "SELECT * FROM " . $this->tabla . " WHERE id_persona = " . $id;
+    return parent::obtenerDatos($query);
+}
+
+public function api_obtener_persona_nombre($nombre){
+    $query = "SELECT * FROM " . $this->tabla . " WHERE primer_nombre LIKE '%" . $nombre . "%'";
+    return parent::obtenerDatos($query);
+}
+
+public function api_post($json){
+
+    $_respuestas = new respuestas;
+
+    // convierto el json a un array asociativo
+    $datos = json_decode($json,true);
+
+    if(!isset($datos['token'])){ // si no viene el token
+            return $_respuestas->error_401(); // no tiene permisos
+    }else{
+
+        $this->token = $datos['token'];
+        $arrayToken = $this->api_buscar_token();
+
+        if($arrayToken){
+
+            // validar campos requeridos
+            if(!isset($datos['cedula']) || !isset($datos['primer_nombre']) || !isset($datos['primer_apellido'])){
+                return $_respuestas->error_400();
+            }else{
+
+                $this->cedula = $datos['cedula'];
+                $this->primer_nombre = $datos['primer_nombre'];
+                $this->primer_apellido = $datos['primer_apellido'];
+
+                // verificar los no requeridos
+                if(isset($datos['segundo_nombre'])) { $this->segundo_nombre = $datos['segundo_nombre']; }
+                if(isset($datos['segundo_apellido'])) { $this->segundo_apellido = $datos['segundo_apellido']; }
+                if(isset($datos['fecha_nac'])) { $this->fecha_nacimiento = $datos['fecha_nac']; }
+
+                $resp = $this->api_insertar_persona();
+                if($resp){
+                    $respuesta = $_respuestas->response;
+                    $respuesta["result"] = array(
+                        "id_persona" => $resp
+                    );
+                    return $respuesta;
+                }else{
+                    return $_respuestas->error_500();
+                }
+            }
+
+        }else{
+            return $_respuestas->error_401("El Token que envio es invalido o ha caducado");
+        }
+    }
+}
+
+private function api_insertar_persona(){
+    $query = "INSERT INTO " . $this->table . 
+    " (cedula, primer_nombre, segundo_nombre, 
+    primer_apellido, segundo_apellido, fecha_nac
+    ) values ('" . 
+    $this->cedula . "','" . 
+    $this->primer_nombre . "','" . 
+    $this->segundo_nombre ."','" . 
+    $this->primer_apellido .  "','" . 
+    $this->segundo_apellido . "','" . 
+    $this->fecha_nacimiento . "')"; 
+    
+    $resp = parent::nonQueryId($query);
+    if($resp){
+         return $resp;
+    }else{
+        return 0;
+    }
+}
+
+public function put($json){
+
+    $_respuestas = new respuestas;
+    $datos = json_decode($json,true);
+
+    if(!isset($datos['token'])){
+        return $_respuestas->error_401();
+    }else{
+        $this->token = $datos['token'];
+        $arrayToken =   $this->api_buscar_token();
+        if($arrayToken){
+            if(!isset($datos['id_persona'])){
+                return $_respuestas->error_400();
+            }else{
+                $this->id_persona = $datos['id_persona'];
+                if(isset($datos['cedula'])) { $this->cedula = $datos['cedula']; }
+                if(isset($datos['primer_nombre'])) { $this->primer_nombre = $datos['primer_nombre']; }
+                if(isset($datos['segundo_nombre'])) { $this->segundo_nombre = $datos['segundo_nombre']; }
+                if(isset($datos['primer_apellido'])) { $this->primer_apellido = $datos['primer_apellido']; }
+                if(isset($datos['segundo_apellido'])) { $this->segundo_apellido = $datos['segundo_apellido']; }
+                if(isset($datos['fecha_nac'])) { $this->fecha_nacimiento = $datos['fecha_nac']; }
+    
+                $resp = $this->api_modificar_persona();
+
+                if($resp){
+                    $respuesta = $_respuestas->response;
+                    $respuesta["result"] = array(
+                        "pacienteId" => $this->pacienteid
+                    );
+                    return $respuesta;
+                }else{
+                    return $_respuestas->error_500();
+                }
+            }
+
+        }else{
+            return $_respuestas->error_401("El Token que envio es invalido o ha caducado");
+        }
+    }
+}
+
+private function api_modificar_persona(){
+    $query = "UPDATE " . $this->table . " SET cedula ='" . $this->cedula . 
+    "', primer_nombre = '" . $this->primer_nombre . 
+    "', segundo_nombre = '" . $this->segundo_nombre . 
+    "', primer_apellido = '" . $this->primer_apellido . 
+    "', segundo_apellido = '" . $this->segundo_apellido . 
+    "', fecha_nac = '" . $this->fecha_nacimiento . 
+    "' WHERE id_persona = " . $this->id_persona;
+
+    $resp = parent::nonQuery($query);
+    if($resp >= 1){
+         return $resp;
+    }else{
+        return 0;
+    }
+}
+
+public function delete($json){
+    $_respuestas = new respuestas;
+    $datos = json_decode($json,true);
+
+    if(!isset($datos['token'])){
+        return $_respuestas->error_401();
+    }else{
+        $this->token = $datos['token'];
+        $arrayToken =   $this->api_buscar_token();
+        if($arrayToken){
+
+            if(!isset($datos['id_persona'])){
+                return $_respuestas->error_400();
+            }else{
+                $this->pacienteid = $datos['id_persona'];
+
+                $resp = $this->api_eliminar_persona();
+                
+                if($resp){
+                    $respuesta = $_respuestas->response;
+                    $respuesta["result"] = array(
+                        "pacienteId" => $this->pacienteid
+                    );
+                    return $respuesta;
+                }else{
+                    return $_respuestas->error_500();
+                }
+            }
+
+        }else{
+            return $_respuestas->error_401("El Token que envio es invalido o ha caducado");
+        }
+    }
+}
+
+private function api_eliminar_persona(){
+    $query = "DELETE FROM " . $this->table . " WHERE id_persona = " . $this->id_persona;
+    $resp = parent::nonQuery($query);
+    if($resp >= 1 ){
+        return $resp;
+    }else{
+        return 0;
+    }
+}
+
+private function api_buscar_token(){
+    $query = "SELECT  TokenId, UsuarioId, Estado from usuarios_token WHERE Token = '" . $this->token . "' AND Estado = 'Activo'";
+    $resp = parent::obtenerDatos($query);
+    if($resp){
+        return $resp;
+    }else{
+        return 0;
+    }
+}
+
+private function api_actualizar_token($tokenid){
+    $date = date("Y-m-d H:i");
+    $query = "UPDATE usuarios_token SET Fecha = '$date' WHERE TokenId = '$tokenid' ";
+    $resp = parent::nonQuery($query);
+    if($resp >= 1){
+        return $resp;
+    }else{
+        return 0;
+    }
+}
+
+// Fin API REST
 
     public static function Listar_Personas_Ajax()
     {
@@ -34,19 +257,7 @@ class Personas_Model extends Conexion
             segundo_nombre, primer_apellido, segundo_apellido, fecha_nac FROM persona";
             $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
 
-            if (!$resultado) {
-
-                /*
-                $con = new Conexion();
-              
-                $fileSQL = file_get_contents('../../@Document/DB_pruebas_2021.sql');
-                $con->curl_multi_add_handle($fileSQL);
-                
-                $consulta = "SELECT id_persona, cedula, primer_nombre, 
-                segundo_nombre, primer_apellido, segundo_apellido, fecha_nac FROM persona";
-                $resultado = $con->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
-                */
-            }
+            
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -202,7 +413,6 @@ class Personas_Model extends Conexion
 
     public static function Agregar_Persona_Static($cedula, $n1, $n2, $a1, $a2, $fnac)
     {
-
         try {
             $con = new Conexion();
             $sql = "INSERT INTO persona (
@@ -286,5 +496,145 @@ class Personas_Model extends Conexion
         if ($update->execute())
             $respuesta = true;
         return $respuesta;
+    }
+
+    /**
+     * Get the value of primer_nombre
+     */ 
+    public function getPrimer_nombre()
+    {
+        return $this->primer_nombre;
+    }
+
+    /**
+     * Set the value of primer_nombre
+     *
+     * @return  self
+     */ 
+    public function setPrimer_nombre($primer_nombre)
+    {
+        $this->primer_nombre = $primer_nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of segundo_nombre
+     */ 
+    public function getSegundo_nombre()
+    {
+        return $this->segundo_nombre;
+    }
+
+    /**
+     * Set the value of segundo_nombre
+     *
+     * @return  self
+     */ 
+    public function setSegundo_nombre($segundo_nombre)
+    {
+        $this->segundo_nombre = $segundo_nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of primer_apellido
+     */ 
+    public function getPrimer_apellido()
+    {
+        return $this->primer_apellido;
+    }
+
+    /**
+     * Set the value of primer_apellido
+     *
+     * @return  self
+     */ 
+    public function setPrimer_apellido($primer_apellido)
+    {
+        $this->primer_apellido = $primer_apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of segundo_apellido
+     */ 
+    public function getSegundo_apellido()
+    {
+        return $this->segundo_apellido;
+    }
+
+    /**
+     * Set the value of segundo_apellido
+     *
+     * @return  self
+     */ 
+    public function setSegundo_apellido($segundo_apellido)
+    {
+        $this->segundo_apellido = $segundo_apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fecha_nacimiento
+     */ 
+    public function getFecha_nacimiento()
+    {
+        return $this->fecha_nacimiento;
+    }
+
+    /**
+     * Set the value of fecha_nacimiento
+     *
+     * @return  self
+     */ 
+    public function setFecha_nacimiento($fecha_nacimiento)
+    {
+        $this->fecha_nacimiento = $fecha_nacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_persona
+     */ 
+    public function getId_persona()
+    {
+        return $this->id_persona;
+    }
+
+    /**
+     * Set the value of id_persona
+     *
+     * @return  self
+     */ 
+    public function setId_persona($id_persona)
+    {
+        $this->id_persona = $id_persona;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cedula
+     */ 
+    public function getCedula()
+    {
+        return $this->cedula;
+    }
+
+    /**
+     * Set the value of cedula
+     *
+     * @return  self
+     */ 
+    public function setCedula($cedula)
+    {
+        $this->cedula = $cedula;
+
+        return $this;
     }
 }

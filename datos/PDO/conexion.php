@@ -2,6 +2,7 @@
 
 class Conexion extends PDO
 {
+   private $con;
    private const USER = "root";
    private const PASS = "root";
    private const DB = "pruebas_2021";
@@ -13,10 +14,9 @@ class Conexion extends PDO
    {
       try {
          if (isset($_SESSION['user_db']))
-         parent::__CONSTRUCT(self::DSN, $_SESSION['user_db'], $_SESSION['pass_db']);
+            parent::__CONSTRUCT(self::DSN, $_SESSION['user_db'], $_SESSION['pass_db']);
          else
-         parent::__CONSTRUCT(self::DSN, self::USER, self::PASS);
-           
+            parent::__CONSTRUCT(self::DSN, self::USER, self::PASS);
       } catch (PDOException $e) {
          throw new Exception('Falló la conexión con la DB: ' . $e->getMessage());
          // echo 'Ha surgido un error y no se puede conectar a la base de datos. Detalle: ' . $e->getMessage();
@@ -42,4 +42,72 @@ class Conexion extends PDO
          // exit;
       }
    }
+
+
+   private function conectar()
+   {
+      try {
+         $this->con = new PDO(self::DSN, self::USER, self::PASS);
+      } catch (PDOException $e) {
+         throw new Exception('Falló la conexión con la DB: ' . $e->getMessage());
+         // echo 'Ha surgido un error y no se puede conectar a la base de datos. Detalle: ' . $e->getMessage();
+         // exit;
+      }
+   }
+
+   private function convertirUTF8($array)
+   {
+      array_walk_recursive($array, function (&$item, $key) {
+         if (!mb_detect_encoding($item, 'utf-8', true)) {
+            $item = utf8_encode($item);
+         }
+      });
+      return $array;
+   }
+
+   // OBTENER DATOS
+   public function obtenerDatos($sqlstr)
+   {
+      $this->conectar();
+      $results = $this->con->query($sqlstr);
+      $resultArray = array();
+      foreach ($results as $key) {
+         $resultArray[] = $key;
+      }
+      return $this->convertirUTF8($resultArray);
+   }
+
+
+   // MODIFICAR
+   public function nonQuery($sqlstr)
+   {
+      $this->conectar();
+      $results = $this->con->query($sqlstr);
+      return $this->con->affected_rows;
+   }
+
+
+   //INSERTAR 
+   public function nonQueryId($sqlstr)
+   {
+      $this->conectar();
+      $results = $this->con->query($sqlstr);
+      $filas = $this->con->affected_rows;
+      if ($filas >= 1) {
+         return $this->con->insert_id;
+      } else {
+         return 0;
+      }
+   }
+
+  
+ //encriptar
+
+ protected function encriptar($string)
+ {
+    return md5($string);
+ }
+
+
+
 }

@@ -1,2 +1,8 @@
 Contar las lineas de codigo: Aporte de Agustin Puesnte (ITI)
 (gci -include *.css, *.php, *.json, *.html, *.js, *.sql -recurse | select-string .).Count
+
+
+Diferencias entre include_once vs require_once.
+https://www.baulphp.com/como-usar-include-y-require-en-php-ejemplos/#:~:text=Diferencia%20entre%20include%20y%20require%20PHP,-A%20continuaci%C3%B3n%20detallaremos&text=INCLUDE%2C%20Esta%20funci%C3%B3n%20inserta%20c%C3%B3digo,mismo%20que%20la%20anterior%20funci%C3%B3n.
+
+

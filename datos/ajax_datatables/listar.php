@@ -4,6 +4,10 @@ include_once('../PDO/personas_modelo.php');
 
 try {
 	$result = Personas_Model::Listar_Personas_Ajax();
+
+	echo  json_encode($result);
+
+
 	$datos = array();
 	foreach ($result as $row) {
 		$sub_array = array();
