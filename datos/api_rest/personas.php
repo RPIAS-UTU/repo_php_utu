@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         // indica que es una peticion de tipo JSON
         header("Content-Type: application/json");
         echo json_encode($lista_personas);
-        // responde codifo 200 ok
+        // responde codigo 200 ok
         http_response_code(200);
 
     }else if(isset($_GET['id'])){

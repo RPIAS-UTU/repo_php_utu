@@ -1,3 +1,4 @@
+
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
@@ -260,7 +261,7 @@ INSERT INTO `usuarios_api` (`UsuarioId`, `Usuario`, `Password`, `Estado`) VALUES
 --
 DROP TABLE IF EXISTS `usuarios_token`;
 CREATE TABLE `usuarios_token` (
-  `TokenId` int(11) NOT NULL AUTO_INCREMENT,
+  `TokenId` int(11) NOT NULL ,
   `UsuarioId` varchar(45) DEFAULT NULL,
   `Token` varchar(45) DEFAULT NULL,
   `Estado` varchar(45) CHARACTER SET armscii8 DEFAULT NULL,
@@ -268,11 +269,23 @@ CREATE TABLE `usuarios_token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT de la tabla `usuarios_api`
 --
+/*
 ALTER TABLE `usuarios_api`
   MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT;
+*/
 
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+/*
+ALTER TABLE `usuarios_token`
+  MODIFY `TokenId` int(11) NOT NULL AUTO_INCREMENT;
+  
+  ALTER TABLE `usuarios_token`
+  ADD PRIMARY KEY (`TokenId`);
+  */
+  
 --
 -- Índices para tablas volcadas
 --
