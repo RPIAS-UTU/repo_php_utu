@@ -2,6 +2,11 @@
 
 class Conexion extends PDO
 {
+
+   // Ver configuracion de un contenedor
+   // docker inspect <name-of-container-with-mariadb> | grep IPAdress
+   // IP del contenedor mySQL 172.18.0.2
+
    private $con;
    private const USER = "root";
    private const PASS = "root";
