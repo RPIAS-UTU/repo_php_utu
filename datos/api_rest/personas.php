@@ -5,14 +5,14 @@ require_once '../PDO/personas_modelo.php';
 $_respuestas = new respuestas;
 $_personas = new Personas_Model;
 
-
 if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     if(isset($_GET["pagina"])){
 
-        $pagina = $_GET["page"];
+        $pagina = $_GET["pagina"];
         $lista_personas = $_personas->api_lista_personas_paginado($pagina);
         // indica que es una peticion de tipo JSON
+
         header("Content-Type: application/json");
         echo json_encode($lista_personas);
         // responde codigo 200 ok

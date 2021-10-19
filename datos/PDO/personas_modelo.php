@@ -30,7 +30,7 @@ public function api_lista_personas(){
 public function api_lista_personas_paginado($pagina = 1){
     
     $inicio  = 0 ;
-    $cantidad = 10;
+    $cantidad = 5;
     // pagina = 2
     if($pagina > 1){
         //   6   = (5 * (2-1))+1
