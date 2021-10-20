@@ -33,9 +33,9 @@ public function api_lista_personas_paginado($pagina = 1){
     $cantidad = 5;
     // pagina = 2
     if($pagina > 1){
-        //   6   = (5 * (2-1))+1
+        //  se calcula inicio  6   = (5 * (2-1))+1
         $inicio = ($cantidad * ($pagina - 1)) + 1 ;
-        //  10      = 5 * 2           
+        //  se calcula final  10      = 5 * 2           
         $cantidad = $cantidad * $pagina;
     }
 

@@ -11,10 +11,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
         $pagina = $_GET["pagina"];
         $lista_personas = $_personas->api_lista_personas_paginado($pagina);
-        // indica que es una peticion de tipo JSON
-
+        
+        // indica se espera una peticion de tipo JSON
         header("Content-Type: application/json");
+
+        // se responde peticion json
         echo json_encode($lista_personas);
+        
         // responde codigo 200 ok
         http_response_code(200);
 
