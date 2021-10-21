@@ -2,7 +2,7 @@
 require_once 'model/respuestas.php';
 require_once '../PDO/personas_modelo.php';
 
-//$_respuestas = new respuestas;
+//$_respuestas = new respuestas; // https://programmerclick.com/article/5224353999/
 $_personas = new Personas_Model;
 
 if($_SERVER['REQUEST_METHOD'] == "GET"){
