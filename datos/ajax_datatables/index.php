@@ -94,7 +94,7 @@
 					<input type="hidden" name="h_persona_id" id="h_persona_id" />
 					<input type="hidden" name="h_operacion" id="h_operacion" />
 					<input type="submit" name="btn_accion" id="btn_accion" class="btn btn-success" value="Agregar" />
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</form>

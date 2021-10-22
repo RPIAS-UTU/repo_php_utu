@@ -33,14 +33,23 @@ public function api_lista_personas_paginado($pagina = 1){
     $cantidad = 5;
     // pagina = 2
     if($pagina > 1){
-        //   6   = (5 * (2-1))+1
+        //  se calcula inicio  6   = (5 * (2-1))+1
         $inicio = ($cantidad * ($pagina - 1)) + 1 ;
-        //  10      = 5 * 2           
-        $cantidad = $cantidad * $pagina;
+        //  se calcula final  10      = 5 * 2           
+        //$cantidad = $cantidad * $pagina;
     }
 
-    $query = "SELECT * FROM " . $this->tabla . " limit $inicio, $cantidad";
+    $query = "SELECT 
+    id_persona,
+    cedula, 
+    primer_nombre,
+    segundo_nombre,
+    primer_apellido,
+    segundo_apellido,
+    fecha_nac
+     FROM " . $this->tabla . " limit $inicio, $cantidad";
     return parent::obtenerDatos($query);
+    // return $query;
 }
 
 public function api_obtener_persona($id){

@@ -12,7 +12,7 @@ class Conexion extends PDO
    private const PASS = "root";
    private const DB = "pruebas_2021";
    private const PORT = "3306";
-   private const HOST = "172.22.0.2" . ":" . self::PORT;
+   private const HOST = "172.18.0.2" . ":" . self::PORT;
    private const DSN = "mysql:host=" . self::HOST . ";dbname=" . self::DB . ";charset=utf8";
 
    public function __CONSTRUCT()
