@@ -36,7 +36,7 @@ public function api_lista_personas_paginado($pagina = 1){
         //  se calcula inicio  6   = (5 * (2-1))+1
         $inicio = ($cantidad * ($pagina - 1)) + 1 ;
         //  se calcula final  10      = 5 * 2           
-        //$cantidad = $cantidad * $pagina;
+        $cantidad = $cantidad * $pagina;
     }
 
     $query = "SELECT 
