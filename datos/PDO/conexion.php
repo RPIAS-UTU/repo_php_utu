@@ -12,16 +12,19 @@ class Conexion extends PDO
    private const PASS = "root";
    private const DB = "pruebas_2021";
    private const PORT = "3306";
-   private const HOST = "172.18.0.2" . ":" . self::PORT;
-   private const DSN = "mysql:host=" . self::HOST . ";dbname=" . self::DB . ";charset=utf8";
+   private const HOST = "172.22.0.2" . ";port=" . self::PORT;
+   private const DSN = "mysql:host=" . self::HOST . ";dbname=" . self::DB;
 
    public function __CONSTRUCT()
    {
       try {
          if (isset($_SESSION['user_db']))
-            parent::__CONSTRUCT(self::DSN, $_SESSION['user_db'], $_SESSION['pass_db']);
+            parent::__CONSTRUCT(self::DSN, $_SESSION['user_db'], $_SESSION['pass_db'], 
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
          else
-            parent::__CONSTRUCT(self::DSN, self::USER, self::PASS);
+            parent::__CONSTRUCT(self::DSN, self::USER, self::PASS, 
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+
       } catch (PDOException $e) {
          throw new Exception('Falló la conexión con la DB: ' . $e->getMessage());
          // echo 'Ha surgido un error y no se puede conectar a la base de datos. Detalle: ' . $e->getMessage();
@@ -37,7 +40,10 @@ class Conexion extends PDO
          if ($user_db) {
             $obj_conexion = new PDO(self::DSN, $user_db, $pass_db);
          } else {
-            $obj_conexion = new PDO(self::DSN, self::USER, self::PASS);
+           
+           $obj_conexion = new PDO(self::DSN, self::USER, self::PASS, 
+           array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+            
          }
 
          return  $obj_conexion;
@@ -52,7 +58,8 @@ class Conexion extends PDO
    private function conectar()
    {
       try {
-         $this->con = new PDO(self::DSN, self::USER, self::PASS);
+         $this->con = new PDO(self::DSN, self::USER, self::PASS, 
+         array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
       } catch (PDOException $e) {
          throw new Exception('Falló la conexión con la DB: ' . $e->getMessage());
          // echo 'Ha surgido un error y no se puede conectar a la base de datos. Detalle: ' . $e->getMessage();
