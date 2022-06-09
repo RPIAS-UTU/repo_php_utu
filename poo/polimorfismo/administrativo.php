@@ -2,14 +2,19 @@
 class Administrativo extends Empleado implements iEmpleado
 {
     //Declarar propiedad
-    private $horas_trabajadas;
+    private $antiguedad;
 
-    //Declaracion de metodo
-
+    //Constructor
+    function __construct($sueldo, $antiguedad)
+    {
+       parent::__construct($sueldo);
+       $this->horas_trabajadas = $antiguedad;
+       
+    }
 
     // Polimorfismo
     public function calcularSueldo(){
-       $this->horas_trabajadas * 540;
+       return parent::$sueldo + ($this->antiguedad * 540);
     }
 
     // Implementacion de IEmpleado1

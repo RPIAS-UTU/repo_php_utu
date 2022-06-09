@@ -2,7 +2,12 @@
 abstract class  Empleado 
 {
     //Declarar propiedad
-    protected $d;
+    protected $sueldo;
+
+    function __construct($sueldo)
+    {
+        $this->sueldo = $sueldo;
+    }
 
     //Declaracion de metodo
 
