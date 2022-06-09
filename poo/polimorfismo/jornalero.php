@@ -16,7 +16,8 @@ class Jornalero extends Empleado implements iEmpleado, iEmpleado2
 
     // Polimorfismo
     public function calcularSueldo(){
-       return parent::$sueldo + ($this->horas_trabajadas);
+       return parent::$sueldo + 
+       ($this->horas_trabajadas * 1.1);
     }
 
     // Implementacion de IEmpleado1
