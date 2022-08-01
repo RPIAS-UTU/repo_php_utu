@@ -1,13 +1,14 @@
 # repo_php_utu
 repo_php_utu
 
-'''mermaid
-graph TD;
+´´´mermaid
+graph LR;
     A-->B;
     A-->C;
     B-->D;
     C-->D;
-'''
+    
+´´´
 
 para probar el login
 
