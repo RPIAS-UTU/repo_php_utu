@@ -9,10 +9,10 @@ class Conexion extends PDO
 
    private $con;
    private const USER = "root";
-   private const PASS = "root";
+   private const PASS = "";
    private const DB = "pruebas_2021";
    private const PORT = "3306";
-   private const HOST = "172.22.0.2" . ";port=" . self::PORT;
+   private const HOST = "localhost" . ";port=" . self::PORT;
    private const DSN = "mysql:host=" . self::HOST . ";dbname=" . self::DB;
 
    public function __CONSTRUCT()
@@ -78,15 +78,15 @@ class Conexion extends PDO
    }
 
    // OBTENER DATOS
-   public function obtenerDatos($sqlstr)
+   public static function obtenerDatos($sqlstr)
    {
-      $this->conectar();
-      $results = $this->con->query($sqlstr);
+      $conexion = new Conexion();
+      $results = $conexion->query($sqlstr);
       $resultArray = array();
       foreach ($results as $key) {
          $resultArray[] = $key;
       }
-      return $this->convertirUTF8($resultArray);
+      return $resultArray;
    }
 
 

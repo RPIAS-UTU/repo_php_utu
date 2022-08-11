@@ -9,12 +9,34 @@
 <body>
     
 <?php
-    include_once("personas_modelo.php");
 
-    if (Personas_Model::Agregar_Persona_Static(19245911, "R", "E", "P", "R", "19751103") > 0)
-        echo "<br>Registro ingresado con Éxito";
-    else
-        echo "<br>ERROR al ingresar registro";
+include_once("conexion.php");
+
+try{
+    $conexion = new Conexion();
+    echo "Conexión establecida con Éxito !!";
+//$arr_personas = 
+print_r( Conexion::obtenerDatos("SELECT * FROM persona"));
+echo "<br>";
+echo "=============================================================";
+echo "<br>";
+var_dump(Conexion::obtenerDatos("SELECT * FROM persona"));
+
+
+
+}catch(Exception $ex){
+    echo "ERROR al conectar la DB: " . $ex;
+}
+
+
+
+
+    // include_once("personas_modelo.php");
+
+    // if (Personas_Model::Agregar_Persona_Static(19245911, "R", "E", "P", "R", "19751103") > 0)
+    //     echo "<br>Registro ingresado con Éxito";
+    // else
+    //     echo "<br>ERROR al ingresar registro";
 
 
 /*
@@ -34,15 +56,15 @@
     else
         echo "<br>ERROR al modificar registro";
 */
-        echo "<br><br>";
+        // echo "<br><br>";
 
-        Personas_Model::Listar_Personas();
+        // Personas_Model::Listar_Personas();
 
-        echo "<br><br>";
+        // echo "<br><br>";
 
-        Personas_Model::Listar_Personas_SP();
+        // Personas_Model::Listar_Personas_SP();
 
-        echo "<br><br>";
+        // echo "<br><br>";
 
 ?>
 
